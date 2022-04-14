@@ -1,7 +1,9 @@
 {
   "version": 2,
   "projects": {
+    "components": "libs/components",
     "products": "apps/products",
+    "products-backend": "apps/products-backend",
     "products-e2e": "apps/products-e2e"
   }
 }

@@ -1570,6 +1570,37 @@
     url-loader "^4.1.1"
     webpack-merge "^5.8.0"
 
+"@nrwl/node@^13.10.2":
+  version "13.10.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-13.10.2.tgz#a923fdf0decde53283de54cac411631bbcdccbc7"
+  integrity sha512-ipGLjTDd0CZv7pSnqt+U65p8z3oaVwsh2zQF8ePczxfiePgwML3SQyIYMSFbgP4pjd3K56u6D/gSG3SkAg+gmQ==
+  dependencies:
+    "@nrwl/devkit" "13.10.2"
+    "@nrwl/jest" "13.10.2"
+    "@nrwl/js" "13.10.2"
+    "@nrwl/linter" "13.10.2"
+    "@nrwl/workspace" "13.10.2"
+    chalk "4.1.0"
+    copy-webpack-plugin "^9.0.1"
+    enhanced-resolve "^5.8.3"
+    fork-ts-checker-webpack-plugin "6.2.10"
+    fs-extra "^9.1.0"
+    glob "7.1.4"
+    license-webpack-plugin "^4.0.2"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
+    source-map-support "0.5.19"
+    terser-webpack-plugin "^5.3.0"
+    tree-kill "1.2.2"
+    ts-loader "^9.2.6"
+    ts-node "~9.1.1"
+    tsconfig-paths "^3.9.0"
+    tsconfig-paths-webpack-plugin "3.5.2"
+    tslib "^2.3.0"
+    webpack "^5.58.1"
+    webpack-merge "^5.8.0"
+    webpack-node-externals "^3.0.0"
+
 "@nrwl/react@13.10.2":
   version "13.10.2"
   resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-13.10.2.tgz#3b28664d729b8055e85d43f924647ec1ca083230"
@@ -1736,6 +1767,13 @@
     tslib "^2.3.0"
     yargs "^17.4.0"
     yargs-parser "21.0.1"
+
+"@nx-go/nx-go@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@nx-go/nx-go/-/nx-go-2.5.0.tgz#ee0525ca2270f619fa6d465b123be3398a6fe49e"
+  integrity sha512-zxHLT6hzTnhzDbun1TtpdlcMteU1skFcLQgMFowvkKt8UZYy64OuadTC8ou8EfgRBNpPcZ7xOJo0xxffNEkkfg==
+  dependencies:
+    fs-extra "^9.1.0"
 
 "@parcel/watcher@2.0.4":
   version "2.0.4"

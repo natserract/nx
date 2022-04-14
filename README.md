@@ -95,7 +95,8 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 
 ## Cli
-- Running: `nx run products:serve`
+- Running (client): `nx run products:serve`
+- Running (backend): `nx serve products-backend`
 
 
 ## Issues

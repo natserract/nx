@@ -1,6 +1,7 @@
 import styles from './index.module.css';
 import { useGetProductsQuery } from '../redux/api/products'
 import { useEffect } from 'react';
+import { InputBase } from '@nx/components'
 
 export function Index() {
   const { data } = useGetProductsQuery()
@@ -16,6 +17,7 @@ export function Index() {
           <span className="block">Ready to dive in?</span>
           <span className="block text-indigo-600">
             Start your free trial today.
+            <InputBase />
           </span>
         </h2>
       </div>
