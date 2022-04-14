@@ -96,3 +96,15 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 ## Cli
 - Running: `nx run products:serve`
+
+
+## Issues
+- [https://github.com/nrwl/nx/issues/5605](https://github.com/nrwl/nx/issues/5605), solutions: create blank main.tsx
+
+
+## Concerns
+### Redux
+Redux Toolkit was created to address three major concerns:
+1. "Configuring a Redux store is too complicated" 
+2. "I have to add a lot of packages to get Redux to do anything useful"
+3. "Redux requires too much boilerplate code"
