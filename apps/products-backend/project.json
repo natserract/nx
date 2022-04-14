@@ -1,0 +1,27 @@
+{
+  "root": "apps/products-backend",
+  "projectType": "application",
+  "sourceRoot": "apps/products-backend",
+  "targets": {
+    "build": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "outputPath": "dist/apps/products-backend",
+        "main": "apps/products-backend/main.go"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cd apps/products-backend && docker-compose up"
+      }
+    },
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  },
+  "tags": []
+}
