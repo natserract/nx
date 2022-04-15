@@ -17,13 +17,13 @@ export function Header(props: HeaderProps) {
         <div className=" flex items-center">
           <div className="hidden md:block">
             <div className="flex items-baseline">
-              <Link href="/#">
+              <Link href="/">
                 <a className="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium" >
                   Lists
                 </a>
               </Link>
 
-              <Link href="/#">
+              <Link href="/create">
                 <a className="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium" >
                   Create
                 </a>

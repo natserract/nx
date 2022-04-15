@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 export function Index(props) {
   // const { data } = useGetProductsQuery()
   const { control } = useForm()
-  const state = useAppSelector(state => state.app.queries)
+  const state = useAppSelector(state => state.productApp.queries)
 
   // useEffect(() => {
   //   console.log('data', data)
@@ -38,8 +38,6 @@ export const getStaticProps = wrapper.getStaticProps(store => async (context) =>
 
   const response = await store.dispatch(productApi.endpoints.getProducts.initiate())
   await Promise.all(getRunningOperationPromisesProduct())
-
-  console.log('response', response)
 
   return {
     props: {
