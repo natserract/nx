@@ -4,9 +4,10 @@ import { InputBaseProps } from './types';
 import { Any } from '../../types/share';
 import clsx from 'clsx'
 import { styles } from './styles';
+import { Input } from "@vechaiui/react"
 
 export const InputBase = React.forwardRef<
-  HTMLInputElement | HTMLTextAreaElement,
+  HTMLElement,
   InputBaseProps
 >((props, _ref) => {
   const {
@@ -16,9 +17,11 @@ export const InputBase = React.forwardRef<
     onChange: onChangeProps,
     rules,
     inputComponent = 'input',
+    variant = 'outline',
     multiline,
     shouldUnregister,
     className,
+    size = 'lg',
     ...inputProps
   } = props
 
@@ -37,13 +40,16 @@ export const InputBase = React.forwardRef<
   }
 
   const renderInput = (field: ControllerRenderProps<Any, string>) => (
-    <input
-      ref={field.ref}
+    <Input
+      ref={field.ref as Any}
+      as={InputComponent as Any} // <- Need to enforce this
       name={field.name}
       className={clsx(styles.inputBase, className)}
       required={required}
       value={field.value ?? ''}
+      variant={variant}
       onChange={(e) => mergeOnChange(e, field.onChange(e))}
+      size={size}
       {...inputProps}
     />
   )

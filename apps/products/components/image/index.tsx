@@ -7,12 +7,8 @@ type ImageProps = Partial<{
 
 const Image: React.FC<ImageProps> = (props) => {
   const {
-    width,
-    height,
-    layout,
     classes,
     objectFit,
-    src,
     alt,
     ...other
   } = props
@@ -20,11 +16,7 @@ const Image: React.FC<ImageProps> = (props) => {
   return (
     <NextImage
       className={classes}
-      layout={layout}
-      width={width}
-      height={height}
       objectFit={objectFit || "contain"}
-      src={src}
       alt={alt || ""}
       draggable={false}
       {...other}

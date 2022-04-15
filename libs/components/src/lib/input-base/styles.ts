@@ -1,4 +1,4 @@
 
 export const styles = {
-  inputBase: `flex items-center bg-indigo-600`
+  inputBase: `text-neutral-700`
 }

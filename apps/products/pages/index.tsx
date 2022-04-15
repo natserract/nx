@@ -23,7 +23,7 @@ export function Index(props) {
           <span className="block">Ready to dive in?</span>
           <span className="block text-indigo-600">
             Start your free trial today.
-            <InputBase control={control} name='Text' />
+            <InputBase control={control} placeholder='bem' name='Text' />
 
           </span>
         </h2>
