@@ -1,5 +1,6 @@
 import { URL_PRODUCTS, URL_PRODUCTS_ITEM } from '../../../constants/endpoint';
 import { baseApi } from '../base'
+import { ProductsPayloadT } from './types';
 
 // | Define product endpoints and allow it to create the API slice
 export const productApi = baseApi.injectEndpoints({
@@ -15,8 +16,8 @@ export const productApi = baseApi.injectEndpoints({
       query: (productId: string | number) => `${URL_PRODUCTS_ITEM(productId)}`,
     }),
     // TODO: payload types
-    addProducts: builder.mutation<string, { payload: any; id: string }>({
-      query: ({ id, payload }) => ({
+    addProducts: builder.mutation<string, { payload: ProductsPayloadT; productId: string }>({
+      query: ({ productId, payload }) => ({
         // Input types
         body: {
           // user: userId,

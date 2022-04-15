@@ -1,9 +1,8 @@
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { FormControl, FormLabel, FormHelperText, FormErrorMessage, } from "@vechaiui/react"
+import { Button } from "@vechaiui/react"
 import { InputBase as Input } from '@nx/components'
 import TextField from '../../components/text-field'
-
 
 const Create: NextPage = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -15,23 +14,45 @@ const Create: NextPage = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto px-8">
+      <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mb-7">
+        <span className="block">Create Product</span>
+      </h2>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* <FormControl invalid={Boolean(errors.username)}>
-          <FormLabel>Username</FormLabel>
-          <Input control={control} required name='username' placeholder="Enter your username." />
-          {errors.username && errors.username.type === "required" && <FormErrorMessage>Username is required</FormErrorMessage>}
-        </FormControl> */}
         <TextField
           control={control}
-          name='input'
+          name='name'
           errors={errors}
-          label="Input"
-          placeholder="Enter your input."
-          errorMessage="Field is Required"
+          label="Name"
+          placeholder="Enter your product name"
           required
         />
 
+        <TextField
+          control={control}
+          name='brand'
+          errors={errors}
+          label="Brand"
+          placeholder="Enter your product brand"
+        />
+
+        <TextField
+          control={control}
+          name='description'
+          errors={errors}
+          label="Description"
+          placeholder="Enter your product description"
+        />
+
+        <Button
+          size='xl'
+          className="dark:bg-gray-800 dark:hover:bg-gray-700 float-right block cursor-pointer"
+          style={{ marginTop: 25 }}
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
     </div>
   )

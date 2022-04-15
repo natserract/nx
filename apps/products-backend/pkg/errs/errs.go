@@ -59,7 +59,7 @@ func SendToSentry(ctx context.Context, code codes.Code, err error) {
 
 // APIError writes default error message and header for a given http status code.
 func APIError(ctx context.Context, w http.ResponseWriter, code int, err error) {
-	w.WriteHeader(code)
+  w.WriteHeader(code)
 	http.Error(w, http.StatusText(code), code)
 }
 

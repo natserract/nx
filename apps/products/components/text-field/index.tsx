@@ -12,7 +12,6 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     errors,
     name,
     label,
-    placeholder,
     disabled,
     errorMessage,
     helperText,
@@ -25,11 +24,9 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     isFormError = true
   }
 
-  console.log('errors', errors, isFormError)
-
   return (
     <FormControl invalid={Boolean(isFormError)}>
-      <FormLabel>{placeholder || label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       <Input
         control={control}
         name={name}
