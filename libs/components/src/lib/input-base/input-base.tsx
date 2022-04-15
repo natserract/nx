@@ -1,14 +1,65 @@
-import styles from './input-base.module.scss';
+import React from 'react'
+import { Controller, ControllerRenderProps } from 'react-hook-form'
+import { InputBaseProps } from './types';
+import { Any } from '../../types/share';
+import clsx from 'clsx'
+import { styles } from './styles';
 
-/* eslint-disable-next-line */
-export interface InputBaseProps {}
+export const InputBase = React.forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  InputBaseProps
+>((props, _ref) => {
+  const {
+    name,
+    control,
+    required,
+    onChange: onChangeProps,
+    rules,
+    inputComponent = 'input',
+    multiline,
+    shouldUnregister,
+    className,
+    ...inputProps
+  } = props
 
-export function InputBase(props: InputBaseProps) {
+  let InputComponent = inputComponent;
+
+  if (multiline && InputComponent === 'input') {
+    InputComponent = 'textarea';
+  }
+
+  const mergeOnChange = (event: React.ChangeEvent<HTMLInputElement>, fn) => {
+    if (onChangeProps && typeof onChangeProps === "function") {
+      onChangeProps(event)
+    }
+
+    return fn
+  }
+
+  const renderInput = (field: ControllerRenderProps<Any, string>) => (
+    <input
+      ref={field.ref}
+      name={field.name}
+      className={clsx(styles.inputBase, className)}
+      required={required}
+      value={field.value ?? ''}
+      onChange={(e) => mergeOnChange(e, field.onChange(e))}
+      {...inputProps}
+    />
+  )
+
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to InputBase!</h1>
-    </div>
-  );
-}
+    <Controller
+      control={control}
+      name={name}
+      render={({ field }) => renderInput(field)}
+      rules={{
+        required,
+        ...rules
+      }}
+      shouldUnregister={shouldUnregister}
+    />
+  )
+})
 
 export default InputBase;
