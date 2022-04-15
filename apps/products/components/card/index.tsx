@@ -1,32 +1,63 @@
-import { useRouter } from 'next/router'
+import clsx from 'clsx';
+import Link from 'next/link';
+import React from 'react';
+import { HTMLElementT, MouseEventT } from '../../interfaces/share';
+import { styles } from './styles'
 
-const Card: React.FC = () => {
-  const router = useRouter()
+type CardProps = {
+  title: string;
+  description: string;
+  price: string;
+  link: string;
+  btnText: string;
+  btnClick?: (e: MouseEventT<HTMLButtonElement>) => void;
+} & Partial<HTMLElementT<HTMLDivElement>>
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(props, ref) {
+  const {
+    link,
+    title,
+    description,
+    price,
+    btnText,
+    btnClick,
+    className,
+    ...other
+  } = props
 
   return (
-    <div className="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+    <div
+      ref={ref}
+      className={clsx(className, styles.container)}
+      {...other}
+    >
       <div className="w-full p-4">
-        <h2 className="text-gray-900 font-bold text-2xl">
-          Bike, Olympic
-        </h2>
+        <Link href={link}>
+          <a children={
+            <h2 className="text-gray-900 font-bold text-2xl">
+              {title}
+            </h2>
+          } />
+        </Link>
+
         <p className="mt-2 text-gray-600 text-sm">
-          Road Bike
+          {description}
         </p>
         <div className="flex item-center justify-between mt-3">
           <h3 className="text-gray-700 font-bold text-xl">
-            $220
+            {price}
           </h3>
 
           <button
-            onClick={() => router.push(`/update/${2}`)}
+            onClick={btnClick}
             className="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded"
           >
-            Edit Product
+            {btnText}
           </button>
         </div>
       </div>
     </div>
   )
-}
+})
 
 export default Card

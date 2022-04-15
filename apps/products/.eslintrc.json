@@ -10,7 +10,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/products/pages"]
+        "@next/next/no-html-link-for-pages": ["error", "apps/products/pages"],
+        "react/no-children-prop": ["off", {
+          "allowFunctions": true
+        }]
       }
     },
     {

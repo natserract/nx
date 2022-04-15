@@ -12,6 +12,7 @@ type ProductItem = {
 }
 
 export type ProductsPayloadT = {
+  id?: string;
   name: string;
   brand: string;
   description: string;
