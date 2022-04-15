@@ -5,13 +5,19 @@ module.exports = {
   presets: [
     require('../../tailwind-workspace-preset.js'),
   ],
-  purge: [
+  content: [
     // CSS Purging
     join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'layouts/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+    "./node_modules/@vechaiui/**/*.{js,ts,jsx,tsx}", // <- path to vechaiui
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@vechaiui/core"),
+  ],
 }

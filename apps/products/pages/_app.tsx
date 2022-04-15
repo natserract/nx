@@ -9,12 +9,16 @@ Object.assign(globalThis, {
 
 import App from 'next/app';
 import Head from 'next/head';
+
+import { VechaiProvider } from "@vechaiui/react";
 import 'tailwindcss/tailwind.css';
+
 import './styles.css';
 
 // Redux blocks
 import { Provider } from 'react-redux'
 import { store, wrapper } from '../redux/configureStore';
+import ContainerLayout from '../layouts/container/container';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -34,7 +38,11 @@ class MyApp extends App {
         </Head>
 
         <Provider store={store}>
-          <Component {...pageProps} />
+          <VechaiProvider>
+            <ContainerLayout>
+              <Component {...pageProps} />
+            </ContainerLayout>
+          </VechaiProvider>
         </Provider>
       </>
     );
