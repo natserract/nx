@@ -1,3 +1,4 @@
+import { URL_PRODUCTS, URL_PRODUCTS_ITEM } from '../../../constants/endpoint';
 import { baseApi } from '../base'
 
 // | Define product endpoints and allow it to create the API slice
@@ -8,10 +9,10 @@ export const productApi = baseApi.injectEndpoints({
     getProducts: builder.query<any, void>({
       // | If there query no argument, use `void`
       // https://github.com/reduxjs/redux-toolkit/issues/1676
-      query: () => `/posts/`
+      query: () => `${URL_PRODUCTS}`
     }),
     getProduct: builder.query({
-      query: (id: number) => `/products/${id}`,
+      query: (productId: string | number) => `${URL_PRODUCTS_ITEM(productId)}`,
     }),
     // TODO: payload types
     addProducts: builder.mutation<string, { payload: any; id: string }>({
@@ -22,7 +23,7 @@ export const productApi = baseApi.injectEndpoints({
           ...payload,
         },
         method: 'POST',
-        url: '/add/products/',
+        url: `${URL_PRODUCTS}`,
       })
     })
   })

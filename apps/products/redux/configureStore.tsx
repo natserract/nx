@@ -11,7 +11,7 @@ export const store = configureStore({
   // and other useful features of `rtk-query`.
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({
-      // serializableCheck: false
+      serializableCheck: false
     }).concat([
       baseApi.middleware,
       productApi.middleware,

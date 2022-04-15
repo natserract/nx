@@ -1,4 +1,4 @@
-# Fork from @https://github.com/withbioma/interview-backend
+# Clone from @https://github.com/withbioma/interview-backend
 
 Backend services
 

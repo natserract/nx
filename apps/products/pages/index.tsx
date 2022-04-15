@@ -39,6 +39,8 @@ export const getStaticProps = wrapper.getStaticProps(store => async (context) =>
   const response = await store.dispatch(productApi.endpoints.getProducts.initiate())
   await Promise.all(getRunningOperationPromisesProduct())
 
+  console.log('response', response)
+
   return {
     props: {
       products: response.data || []
@@ -47,8 +49,4 @@ export const getStaticProps = wrapper.getStaticProps(store => async (context) =>
   }
 })
 
-const mapStateToProps = (state: AppState) => ({
-  product: state.getState
-});
-
-export default connect(mapStateToProps)(Index);
+export default Index
