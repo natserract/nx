@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import HamburgerMenu from './components/hamburger-menu';
 import MobileMenu from './components/mobile-menu';
 
-/* eslint-disable-next-line */
 export interface HeaderProps { }
 
 export function Header(props: HeaderProps) {

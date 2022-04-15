@@ -6,17 +6,16 @@ import Card from '../components/card';
 import React from 'react';
 import { ProductsPayloadT } from '../redux/api/products/types';
 import { useRouter } from 'next/router'
+import { stringToSlug } from '../utils/string';
 
 type Props = {
   products: {
-    data: {
-      products: ProductsPayloadT[]
-    }
+    data: ProductsPayloadT[]
   }
 }
 
-export function Index(props: Props) {
-  const { products } = props.products.data
+export function IndexPage(props: Props) {
+  const { data } = props.products
 
   const router = useRouter()
 
@@ -25,21 +24,28 @@ export function Index(props: Props) {
 
   const renderProducts = () => {
     const navigateProduct =
-      (url: string, id: string | number) => router.push(`${url}/${id}`)
+      (url: string, slug: string) => router.push(`${url}/${slug}`)
 
-    if (!products.length) return <React.Fragment />
+    if (!data.length) return <React.Fragment />
 
-    return products.map((product) => (
-      <Card
-        key={product.id}
-        link={`/product/${product.id}`}
-        title={product.name}
-        description={product.description}
-        btnText="Edit Product"
-        btnClick={() => navigateProduct(`/product/edit`, product.id)}
-        price='$220'
-      />
-    ))
+    return data.map((product) => {
+      const id = product.id
+      const slug = stringToSlug(product.name)
+
+      return (
+        <Card
+          key={product.id}
+          link={`/product/${id}`}
+          title={product.name}
+          description={product.description}
+          btnText="Edit Product"
+          btnClick={() =>
+            navigateProduct(`/product/edit`, id)
+          }
+          price='$220'
+        />
+      )
+    })
   }
 
   return (
@@ -64,11 +70,11 @@ export const getStaticProps = wrapper.getStaticProps(store => async (context) =>
   return {
     props: {
       products: {
-        data: response.data || []
+        data: response.data.products || []
       }
     },
     revalidate: 1
   }
 })
 
-export default Index
+export default IndexPage

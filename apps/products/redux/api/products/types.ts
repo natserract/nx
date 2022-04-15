@@ -19,3 +19,12 @@ export type ProductsPayloadT = {
   product_item: ProductItem[];
   product_variant_group_ids?: number[]
 }
+
+
+export type ProductListsResponse = {
+  products: ProductsPayloadT[]
+}
+
+export type ProductViewResponse = {
+  product: ProductsPayloadT
+}
