@@ -1,5 +1,8 @@
+import { useRouter } from 'next/router'
 
 const Card: React.FC = () => {
+  const router = useRouter()
+
   return (
     <div className="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="w-full p-4">
@@ -14,7 +17,10 @@ const Card: React.FC = () => {
             $220
           </h3>
 
-          <button className="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded">
+          <button
+            onClick={() => router.push(`/update/${2}`)}
+            className="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded"
+          >
             Edit Product
           </button>
         </div>

@@ -1,14 +1,10 @@
 import styles from './index.module.css';
 import { getRunningOperationPromisesProduct, productApi } from '../redux/api/products'
-import { useEffect } from 'react';
-import { InputBase } from '@nx/components'
 import { useForm } from 'react-hook-form'
 import { useAppSelector, wrapper } from '../redux/configureStore';
 import Card from '../components/card';
 
-
 export function Index(props) {
-  // const { data } = useGetProductsQuery()
   const { control } = useForm()
   const state = useAppSelector(state => state.productApp.queries)
 
