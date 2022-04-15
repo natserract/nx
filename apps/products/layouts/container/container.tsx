@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import Header from '../header/header';
-import styles from './container.module.scss';
 
 /* eslint-disable-next-line */
 export interface ContainerProps {
@@ -12,11 +11,9 @@ export function Container(props: ContainerProps) {
     <React.Fragment>
       <Header />
 
-      <div className={styles['container']}>
-        <h1>Welcome to Container!</h1>
+      <div className="max-w-7xl mx-auto px-8 mt-10">
+        {props.children}
       </div>
-
-      {props.children}
     </React.Fragment>
   );
 }
