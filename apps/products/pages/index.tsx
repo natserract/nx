@@ -1,14 +1,20 @@
 import styles from './index.module.css';
-import { useGetProductsQuery } from '../redux/api/products'
+import { getRunningOperationPromisesProduct, productApi } from '../redux/api/products'
 import { useEffect } from 'react';
 import { InputBase } from '@nx/components'
+import { useForm } from 'react-hook-form'
+import { AppState, useAppSelector, wrapper } from '../redux/configureStore';
+import { connect } from 'react-redux';
 
-export function Index() {
-  const { data } = useGetProductsQuery()
+export function Index(props) {
+  // const { data } = useGetProductsQuery()
+  const { control } = useForm()
+  const state = useAppSelector(state => state.app.queries)
 
-  useEffect(() => {
-    console.log('data', data)
-  }, [data])
+  // useEffect(() => {
+  //   console.log('data', data)
+  // }, [data])
+
 
   return (
     <div className={styles.page}>
@@ -17,12 +23,32 @@ export function Index() {
           <span className="block">Ready to dive in?</span>
           <span className="block text-indigo-600">
             Start your free trial today.
-            <InputBase />
+            <InputBase control={control} name='Text' />
+
           </span>
         </h2>
+        {JSON.stringify(props)}
       </div>
     </div>
   );
 }
 
-export default Index;
+export const getStaticProps = wrapper.getStaticProps(store => async (context) => {
+  console.log('store state on the server before dispatch', store.getState());
+
+  const response = await store.dispatch(productApi.endpoints.getProducts.initiate())
+  await Promise.all(getRunningOperationPromisesProduct())
+
+  return {
+    props: {
+      products: response.data || []
+    },
+    revalidate: 1
+  }
+})
+
+const mapStateToProps = (state: AppState) => ({
+  product: state.getState
+});
+
+export default connect(mapStateToProps)(Index);

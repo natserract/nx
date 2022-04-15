@@ -3,6 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { rootReducer } from './reducers'
 import { baseApi, productApi } from './api'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { createWrapper } from 'next-redux-wrapper'
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -10,7 +11,7 @@ export const store = configureStore({
   // and other useful features of `rtk-query`.
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({
-      serializableCheck: false
+      // serializableCheck: false
     }).concat([
       baseApi.middleware,
       productApi.middleware,
@@ -19,6 +20,11 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
 })
 
+const makeStore = () => store;
+
+export type AppState = ReturnType<typeof makeStore>
+
+export const wrapper = createWrapper(makeStore, { debug: true })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization

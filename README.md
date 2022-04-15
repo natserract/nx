@@ -100,7 +100,9 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 
 ## Issues
+- docker can't running, solutions: downgrade version
 - [https://github.com/nrwl/nx/issues/5605](https://github.com/nrwl/nx/issues/5605), solutions: create blank main.tsx
+- Expected signal to be an instanceof AbortSignal SSR [https://github.com/reduxjs/redux-toolkit/issues/1240](https://github.com/reduxjs/redux-toolkit/issues/1240)
 
 
 ## Concerns

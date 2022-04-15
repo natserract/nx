@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { HYDRATE } from 'next-redux-wrapper';
 
-export const BASE_API_REDUCER_KEY = '@@AppReducer';
+export const BASE_API_REDUCER_KEY = 'app';
 
 // In this section, i'm little confused about `createApi` & `createAsyncThunk`
 // But, after read the documentation https://redux-toolkit.js.org/rtk-query/usage/migrating-to-rtk-query
@@ -19,6 +20,11 @@ export const baseApi = createApi({
       return headers
     },
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath]
+    }
+  },
   endpoints: (builder) => ({})
 })
 

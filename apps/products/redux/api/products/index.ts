@@ -36,7 +36,11 @@ export const
     , useLazyGetProductsQuery
     , useGetProductQuery
     , useLazyGetProductQuery
+    , util: { getRunningOperationPromises: getRunningOperationPromisesProduct }
   } = productApi
 
 export const productsApiReducer = productApi.reducer
 export const productsApiReducerPath = productApi.reducerPath
+
+// export endpoints for use in SSR
+export const { getProducts } = productApi.endpoints;

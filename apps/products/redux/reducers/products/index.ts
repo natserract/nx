@@ -29,8 +29,9 @@ export const PRODUCTS_REDUCER_KEY = 'products';
 // Generates promise lifecycle action types using this string as a prefix:
 // => pending -> fulfilled -> rejected
 export const fetchProducts = createAsyncThunk(
-  'products/fetchStatusQuo', // <- action type string
+  'products/fetchStatus', // <- action type string
   async (_, thunkApi) => {
+    console.log('called!')
     return Promise.resolve([])
   }
 )

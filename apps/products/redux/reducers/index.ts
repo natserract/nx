@@ -1,12 +1,10 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, Reducer } from "@reduxjs/toolkit";
 import { baseApiReducer, baseApiReducerPath } from "../api/base";
 import { productsApiReducer, productsApiReducerPath } from "../api/products";
 
 const reducers = {
   [baseApiReducerPath]: baseApiReducer,
-  [productsApiReducerPath]: productsApiReducer
+  [productsApiReducerPath]: productsApiReducer,
 }
 
-export type AppStateT = typeof reducers
-
-export const rootReducer = combineReducers<AppStateT>(reducers)
+export const rootReducer = combineReducers<typeof reducers>(reducers)
