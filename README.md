@@ -15,6 +15,10 @@ nx serve products
 ```
 ### Server
 ```sh
+# For first (build binary)
+cd apps/products-backend && make dev
+
+# And then 
 nx serve products-backend
 ```
 
