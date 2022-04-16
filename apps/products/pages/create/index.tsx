@@ -1,27 +1,32 @@
 import { NextPage } from "next";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Button, Checkbox } from "@vechaiui/react"
-import { InputBase as Input } from '@nx/components'
 import TextField from 'apps/products/components/text-field'
-import { useAddVariantGroupsMutation } from "apps/products/redux/api/products";
+import { useAddProductMutation } from "apps/products/redux/api/products";
 import { useCallback, useEffect, useState } from "react";
+import { convertIntObj } from "apps/products/utils/array";
+import { ProductItem, ProductsPayloadT } from "apps/products/redux/api/products/types";
+import { useNotification } from "@vechaiui/react"
+import { useRouter } from "next/router";
 
 const Create: NextPage = () => {
-  const { control, watch, handleSubmit, formState: { errors } } = useForm({
-    mode: 'onChange'
+  const { control, watch, handleSubmit, formState: { errors }, reset } = useForm({
+    mode: 'onSubmit'
   });
   const {
     fields,
     append,
     remove,
   } = useFieldArray({
-    name: 'productItems',
+    name: 'product_items',
     control,
   })
 
   const [numberOfItems, setNumberOfItems] = useState(1)
 
-  const [addVariantGroupMutation] = useAddVariantGroupsMutation()
+  const router = useRouter()
+  const notification = useNotification();
+  const [addProductMutation] = useAddProductMutation()
 
   const handleFormArray = useCallback(() => {
     const nextValue = numberOfItems;
@@ -29,7 +34,9 @@ const Create: NextPage = () => {
 
     if (nextValue > prevValue) {
       for (let i = prevValue; i < nextValue; i++) {
-        append({ name: '', email: '' });
+        append({
+          is_active: true,
+        });
       }
     } else {
       for (let i = prevValue; i > nextValue; i--) {
@@ -48,7 +55,7 @@ const Create: NextPage = () => {
 
           <TextField
             control={control}
-            name={`retail_price${i}`}
+            name={`product_items.${i}.retail_price`}
             errors={errors}
             label="Retail Price"
             type='number'
@@ -58,7 +65,7 @@ const Create: NextPage = () => {
 
           <TextField
             control={control}
-            name={`height_cm${i}`}
+            name={`product_items.${i}.height_cm`}
             errors={errors}
             label="Height(cm)"
             type='number'
@@ -68,7 +75,7 @@ const Create: NextPage = () => {
 
           <TextField
             control={control}
-            name={`length_cm${i}`}
+            name={`product_items.${i}.length_cm`}
             errors={errors}
             label="Length(cm)"
             type='number'
@@ -78,7 +85,7 @@ const Create: NextPage = () => {
 
           <TextField
             control={control}
-            name={`weight_kg${i}`}
+            name={`product_items.${i}.weight_kg`}
             errors={errors}
             label="Weight(kg)"
             type='number'
@@ -88,7 +95,7 @@ const Create: NextPage = () => {
 
           <TextField
             control={control}
-            name={`width_cm${i}`}
+            name={`product_items.${i}.width_cm`}
             errors={errors}
             label="Width(cm)"
             type='number'
@@ -97,17 +104,17 @@ const Create: NextPage = () => {
           />
 
           <TextField
+            required
             control={control}
-            name={`size${i}`}
+            name={`product_items.${i}.product_variant_ids`}
             errors={errors}
             label="Variant"
             customRenderInput={(field) => (
               <Checkbox.Group
                 inline
                 className={`space-x-4`}
-                defaultValue={["1"]}
               >
-                <Checkbox required value="1" color="default">Small</Checkbox>
+                <Checkbox value="1" color="default">Small</Checkbox>
                 <Checkbox value="2" color="default">Medium</Checkbox>
                 <Checkbox value="3" color="default">Large</Checkbox>
               </Checkbox.Group>
@@ -118,29 +125,48 @@ const Create: NextPage = () => {
     ))
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ProductsPayloadT) => {
+    const productItems = [
+      ...Object.values(convertIntObj(data.product_items)) as ProductItem[],
+    ]
+    const payload = {
+      ...data,
+      product_items: productItems,
+      product_variant_group_ids: [1]
+    }
+
     try {
-      const response = await addVariantGroupMutation({
+      const response = await addProductMutation({
         payload: {
-          name: "Size2",
-          description: "Item Size",
-          product_variants: [
-            {
-              name: "Small"
-            }
-          ]
+          ...payload
         }
       }).unwrap()
       console.log('response', response)
+
+      if (response) {
+        notification({
+          title: "Create Product",
+          description: "Data successfully added",
+          status: 'success',
+          position: "top",
+          duration: 1000,
+        });
+
+        setTimeout(() => {
+          reset()
+          router.push('/')
+        }, 1100)
+      }
     } catch (err) {
       console.log(err)
     }
   };
 
-  console.log('watch', watch())
+  // Debug for values
+  // console.log('watch', watch())
 
   return (
-    <div className="max-w-4xl mx-auto px-8">
+    <div className="max-w-4xl mx-auto px-8 mb-10">
       <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mb-7">
         <span className="block">Create Product</span>
       </h2>
@@ -181,18 +207,19 @@ const Create: NextPage = () => {
             onClick={() => setNumberOfItems(value => value + 1)}
             className="text-gray-900 hover:text-slate-50 dark:hover:bg-gray-700 cursor-pointer"
           >
-            Add more product item
+            Add More Items
           </Button>
         </div>
 
-        <Button
-          size='xl'
-          className="dark:bg-gray-800 dark:hover:bg-gray-700 float-right block cursor-pointer"
-          style={{ marginTop: 25 }}
-          type="submit"
-        >
-          Submit
-        </Button>
+        <div className="flex justify-end mb-10">
+          <Button
+            size='xl'
+            className="dark:bg-gray-800 dark:hover:bg-gray-700 block cursor-pointer"
+            type="submit"
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   )

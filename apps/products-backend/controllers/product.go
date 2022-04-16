@@ -74,7 +74,7 @@ func (c *ProductController) Create(w http.ResponseWriter, r *http.Request) {
 		Brand:       req.Brand,
 		Description: req.Description,
 	}
-	if err := dal.BeginTransaction(nil, func(tx *gorm.DB) error {
+	if err := dal.BeginTransaction(c.BaseDAL.DB, func(tx *gorm.DB) error {
 		cfg := &dal.Configuration{Transaction: tx}
 
 		if err := c.BaseDAL.Create(product, cfg); err != nil {
@@ -178,7 +178,7 @@ func (c *ProductController) Update(w http.ResponseWriter, r *http.Request) {
 	product.Brand = req.Brand
 	product.Description = req.Description
 
-	if err := dal.BeginTransaction(nil, func(tx *gorm.DB) error {
+	if err := dal.BeginTransaction(c.BaseDAL.DB, func(tx *gorm.DB) error {
 		cfg := &dal.Configuration{Transaction: tx}
 
 		if err := c.BaseDAL.Update(product, cfg); err != nil {
@@ -240,7 +240,7 @@ func (c *ProductController) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 	type updateResponse struct {
 		Product *models.Product `json:"product"`
 	}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Control,
+  ControllerRenderProps,
   RegisterOptions,
 } from 'react-hook-form'
 import { Any } from '../../types/share';
@@ -43,4 +44,7 @@ export type InputBaseProps<T = HTMLElement> = OptionalProps<T> & {
 
   // Multiline/textarea
   multiline?: boolean
+
+  // custom render
+  customRenderInput?: (field: ControllerRenderProps<Any, string>) => JSX.Element
 }
