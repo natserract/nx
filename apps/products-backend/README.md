@@ -1,13 +1,13 @@
-# Clone from @https://github.com/withbioma/interview-backend
+# Bioma Interview Backend
 
-Backend services
+Bioma interview backend
 
 Running the server:
 
 ```
 # Start Docker before running
 make dev
-# Server is now available on port 8000
+# Server is now available on port 8080
 ```
 
 ## Schema
@@ -33,7 +33,7 @@ Product Variant Groups, e.g. Size
 
 ## APIs
 
-### Products list - GET localhost:8000/api/products
+### Products list - GET localhost:8080/api/products
 
 Fetches all products with variants.
 
@@ -106,7 +106,7 @@ Sample Response:
 }
 ```
 
-### Product create - POST localhost:8000/api/products
+### Product create - POST localhost:8080/api/products
 
 Accept creation of products with variants.
 
@@ -124,15 +124,15 @@ Request:
          "height_cm" : 10,
          "length_cm" : 10,
          "weight_kg" : 1,
-         "width_cm" : 10
-         "product_variant_ids" : [1, 2, 3],
+         "width_cm" : 10,
+         "product_variant_ids" : [1, 2, 3]
       }
    ],
    "product_variant_group_ids" : [1]
 }
 ```
 
-### Product update - PATCH localhost:8000/api/products/{product_id}
+### Product update - PATCH localhost:8080/api/products/{product_id}
 
 Accept updating of products with variants.
 
@@ -151,15 +151,15 @@ Request:
          "height_cm" : 100,
          "length_cm" : 100,
          "weight_kg" : 2,
-         "width_cm" : 100
-         "product_variant_ids" : [1],
+         "width_cm" : 100,
+         "product_variant_ids" : [1]
       }
    ],
    "product_variant_group_ids" : [1]
 }
 ```
 
-### Product fetch - GET localhost:8000/api/products/{product_id}
+### Product fetch - GET localhost:8080/api/products/{product_id}
 
 Get a single product details
 
@@ -228,11 +228,11 @@ Get a single product details
 }
 ```
 
-### Product delete - DELETE localhost:8000/api/products/{product_id}
+### Product delete - DELETE localhost:8080/api/products/{product_id}
 
 Delete a product
 
-### Product variant group list - GET localhost:8000/api/product_variant_groups
+### Product variant group list - GET localhost:8080/api/product_variant_groups
 
 Get list of available product variant groups.
 
@@ -277,7 +277,7 @@ Get list of available product variant groups.
 }
 ```
 
-### Product variant group create - POST localhost:8000/api/product_variant_groups
+### Product variant group create - POST localhost:8080/api/product_variant_groups
 
 Create a product variant group and its variants.
 
@@ -301,7 +301,7 @@ Request:
 }
 ```
 
-### Product variant group fetch - GET localhost:8000/api/product_variant_groups/{id}
+### Product variant group fetch - GET localhost:8080/api/product_variant_groups/{id}
 
 Get a single product variant group.
 

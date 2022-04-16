@@ -1,6 +1,6 @@
 
 // | Products Type
-type ProductItem = {
+export type ProductItem = {
   id: number;
   product_id: number;
   is_active: boolean;
@@ -9,7 +9,7 @@ type ProductItem = {
   length_cm: number;
   weight_kg: number;
   width_cm: number;
-  product_variants: ProductVariant[]
+  product_variants?: ProductVariant[]
   product_variant_ids: number[]
 
 }
@@ -33,6 +33,11 @@ export type ProductsPayloadT = {
   brand: string;
   description: string;
   product_variant_groups: ProductVariantGroup[]
+
+  // Used for lists
+  product_items: ProductItem[];
+
+  // Used for view
   product_item: ProductItem[];
 }
 

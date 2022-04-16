@@ -10,6 +10,7 @@ module.exports = {
     join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
     join(__dirname, 'layouts/**/*.{js,ts,jsx,tsx}'),
     join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'pieces/**/*.{js,ts,jsx,tsx}'),
     "./node_modules/@vechaiui/**/*.{js,ts,jsx,tsx}", // <- path to vechaiui
     ...createGlobPatternsForDependencies(__dirname),
   ],

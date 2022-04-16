@@ -10,6 +10,8 @@ export const BASE_API_REDUCER_KEY = 'productApp';
 // In fact, `createApi` will completely cover our logic implemented above for the entire slice file
 // including the thunk, slice definition, selectors, and our custom hook!
 //
+// Must read: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior
+//
 // | Define our base endpoints
 export const baseApi = createApi({
   reducerPath: BASE_API_REDUCER_KEY,
@@ -20,12 +22,15 @@ export const baseApi = createApi({
       return headers
     },
   }),
+  refetchOnMountOrArgChange: true,
+  tagTypes: ['Products', 'ProductsVariants'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]
     }
   },
-  endpoints: (builder) => ({})
+  endpoints: (builder) => ({}),
+  keepUnusedDataFor: 30,
 })
 
 

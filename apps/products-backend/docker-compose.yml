@@ -5,11 +5,9 @@ services:
     image: "postgis/postgis"
     environment:
       POSTGRES_DB: bioma
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      # Issues: Ports are not available: listen tcp 0.0.0.0:5432: bind: address already in use
-      # Solution: https://github.com/docker/compose/issues/4950
       - 5432
     networks:
       - backend

@@ -9,7 +9,8 @@ export const productApi = baseApi.injectEndpoints({
     getProducts: builder.query<ProductListsResponse, void>({
       // | If there query no argument, use `void`
       // https://github.com/reduxjs/redux-toolkit/issues/1676
-      query: () => `${URL_PRODUCTS}`
+      query: () => `${URL_PRODUCTS}`,
+      providesTags: ['Products'],
     }),
     getProduct: builder.query<ProductViewResponse, string | number>({
       query: (productId: string | number) => `${URL_PRODUCTS_ITEM(productId)}`,
@@ -22,16 +23,18 @@ export const productApi = baseApi.injectEndpoints({
         },
         method: 'POST',
         url: `${URL_PRODUCTS}`,
-      })
+      }),
+      invalidatesTags: ["Products"],
     }),
-    updateProduct: builder.mutation<string, { payload: Partial<ProductsPayloadT>, productId: string | number }>({
+    updateProduct: builder.mutation<string, { payload: ProductsPayloadT, productId: string | number }>({
       query: ({ productId, payload }) => ({
         body: {
           ...payload,
         },
         method: 'PATCH',
         url: `${URL_PRODUCTS_ITEM(productId)}`
-      })
+      }),
+      invalidatesTags: ["Products"],
     }),
     addVariantGroups: builder.mutation<string, { payload: VariantGroupPayloadT }>({
       query: ({ payload }) => ({
@@ -40,13 +43,17 @@ export const productApi = baseApi.injectEndpoints({
         },
         method: 'POST',
         url: `${URL_PRODUCTS_VARIANT_GROUPS}`
-      })
+      }),
+      invalidatesTags: ["ProductsVariants"]
     })
   })
 })
 
 // Export hooks for usage in functional components, which are
 // Auto-generated based on the defined endpoints
+//
+// You can create custom hooks to wrap all's
+//
 export const
   { useGetProductsQuery
     , useLazyGetProductsQuery
@@ -56,6 +63,7 @@ export const
     , useAddVariantGroupsMutation
     , useUpdateProductMutation
     , util: { getRunningOperationPromises: getRunningOperationPromisesProduct }
+    ,
   } = productApi
 
 export const productsApiReducer = productApi.reducer

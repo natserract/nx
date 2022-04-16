@@ -39,3 +39,8 @@ a {
 button {
   cursor: pointer;
 }
+
+
+.form-checkbox-label {
+  color: black !important;
+}

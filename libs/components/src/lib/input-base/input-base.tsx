@@ -21,6 +21,7 @@ export const InputBase = React.forwardRef<
     multiline,
     shouldUnregister,
     className,
+    customRenderInput = false,
     size = 'lg',
     ...inputProps
   } = props
@@ -39,20 +40,35 @@ export const InputBase = React.forwardRef<
     return fn
   }
 
-  const renderInput = (field: ControllerRenderProps<Any, string>) => (
-    <Input
-      ref={field.ref as Any}
-      as={InputComponent as Any} // <- Need to enforce this
-      name={field.name}
-      className={clsx(styles.inputBase, className)}
-      required={required}
-      value={field.value ?? ''}
-      variant={variant}
-      onChange={(e) => mergeOnChange(e, field.onChange(e))}
-      size={size}
-      {...inputProps}
-    />
-  )
+  const renderInput = (field: ControllerRenderProps<Any, string>) => {
+    const baseInputProps = {
+      ref: field.ref as Any,
+      name: field.name,
+      required,
+      onChange: (e) => mergeOnChange(e, field.onChange(e)),
+    }
+
+    if (customRenderInput) {
+      const RenderInput = customRenderInput(field)
+
+      return React.cloneElement(
+        RenderInput,
+        { ...baseInputProps, ...inputProps }
+      )
+    }
+
+    return (
+      <Input
+        as={InputComponent as Any} // <- Need to enforce this
+        className={clsx(styles.inputBase, className)}
+        variant={variant}
+        size={size}
+        value={field.value ?? ''}
+        {...baseInputProps}
+        {...inputProps}
+      />
+    )
+  }
 
   return (
     <Controller
