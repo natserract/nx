@@ -51,6 +51,9 @@ export const productApi = baseApi.injectEndpoints({
 
 // Export hooks for usage in functional components, which are
 // Auto-generated based on the defined endpoints
+//
+// You can create custom hooks to wrap all's
+//
 export const
   { useGetProductsQuery
     , useLazyGetProductsQuery

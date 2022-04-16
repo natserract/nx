@@ -33,7 +33,12 @@ export type ProductsPayloadT = {
   brand: string;
   description: string;
   product_variant_groups: ProductVariantGroup[]
+
+  // Used for lists
   product_items: ProductItem[];
+
+  // Used for view
+  product_item: ProductItem[];
 }
 
 
