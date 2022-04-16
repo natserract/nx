@@ -112,3 +112,5 @@ Redux Toolkit was created to address three major concerns:
 1. "Configuring a Redux store is too complicated" 
 2. "I have to add a lot of packages to get Redux to do anything useful"
 3. "Redux requires too much boilerplate code"
+
+- Caching: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior

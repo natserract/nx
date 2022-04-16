@@ -3,7 +3,7 @@ import { getProducts, getRunningOperationPromisesProduct } from '../redux/api/pr
 import { useForm } from 'react-hook-form'
 import { useAppSelector, wrapper } from '../redux/configureStore';
 import Card from '../components/card';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ProductsPayloadT } from '../redux/api/products/types';
 import { useRouter } from 'next/router'
 import { stringToSlug } from '../utils/string';
@@ -18,8 +18,8 @@ export function IndexPage(props: Props) {
   const { data } = props.products
 
   const router = useRouter()
-
   const { control } = useForm()
+
   const state = useAppSelector(state => state.productApp.queries)
 
   const renderProducts = () => {
