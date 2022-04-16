@@ -256,7 +256,7 @@ func (d *BaseDAL) ClearAssociation(
 }
 
 func provideDB() (*gorm.DB, error) {
-	dsn := "host=interview_backend_postgres port=5432 user=postgres password=postgres dbname=bioma sslmode=disable"
+	dsn := "host=interview_backend_postgres port=5432 user=user password=password dbname=bioma sslmode=disable"
 	cfg := &gorm.Config{
 		Logger: logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags),
