@@ -12,6 +12,7 @@ type Props = {
     data: ProductsPayloadT
   }
 }
+
 const ProductPage: NextPage = (props: Props) => {
   const { product } = props
 
@@ -48,7 +49,7 @@ const ProductPage: NextPage = (props: Props) => {
         <React.Fragment>
           {items.filter(value => value.product_id == data.id)
             .map((value) => (
-              <li key={value.id} className="flex py-6">
+              <li key={value.id} className="flex">
                 <div className="ml-4 flex flex-1 flex-col">
                   <ol className="mt-2 text-sm text-gray-500">
                     <li className="mb-2">Retail Price: {value.retail_price}</li>
@@ -110,7 +111,7 @@ const ProductPage: NextPage = (props: Props) => {
 
           <div className="mt-10">
             <ul role="list">
-              <h2 className="text-1xl font-extrabold text-gray-900 sm:text-2xl">Details</h2>
+              <h2 className="text-1xl font-extrabold text-gray-900 sm:text-2xl mb-5">Details</h2>
               {renderDetailProduct()}
             </ul>
           </div>

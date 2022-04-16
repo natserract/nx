@@ -11,14 +11,22 @@ import { convertIntObj } from "../utils/array"
 
 type ProductFormProps = {
   form: UseFormReturn<Any, Any>
-  mutationFn: MutationTrigger<MutationDefinition<{ payload: ProductsPayloadT; }, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "Products" | "ProductsVariants", string, "productApp">>
-  type: "Create" | "Update"
+  mutationFn: MutationTrigger<MutationDefinition<{ payload: ProductsPayloadT }, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "Products" | "ProductsVariants", string, "productApp">>
+  type: "Create" | "Update";
+
+  // Addition for update action
+  productId?: string | number;
 }
 
 const ProductForm: React.FC<ProductFormProps> = (props) => {
-  const { form, mutationFn, type: actionType } = props
+  const {
+    form,
+    mutationFn,
+    type: actionType,
+    productId,
+  } = props
 
-  const { control, handleSubmit, formState: { errors }, reset } = form
+  const { control, handleSubmit, formState: { errors }, reset, getValues } = form
   const {
     fields,
     append,
@@ -28,7 +36,12 @@ const ProductForm: React.FC<ProductFormProps> = (props) => {
     control,
   })
 
-  const [numberOfItems, setNumberOfItems] = useState(1)
+  const productItems = getValues('product_item') as ProductItem[]
+  const productItemsLen = productItems && productItems.length
+
+  const [numberOfItems, setNumberOfItems] = useState(
+    productItemsLen || 1
+  )
 
   const router = useRouter()
   const notification = useNotification();
@@ -48,9 +61,27 @@ const ProductForm: React.FC<ProductFormProps> = (props) => {
         remove(i - 1);
       }
     }
-  }, [append, fields.length, numberOfItems, remove])
+  }, [numberOfItems, fields.length, append, remove])
 
   useEffect(handleFormArray, [handleFormArray]);
+
+  // Init form field array when action type `update`
+  useEffect(() => {
+    if (actionType === "Update") {
+      const nextValue = numberOfItems;
+      const prevValue = fields.length;
+
+      console.log('productItems', productItems)
+
+      if (productItems && productItems.length) {
+        for (let i = prevValue; i < nextValue; i++) {
+          append({
+            ...productItems[i],
+          })
+        }
+      }
+    }
+  }, [append, actionType, fields.length, numberOfItems, productItems])
 
   const renderFormProductItems = () => {
     return fields.map((item, i) => (
@@ -146,8 +177,11 @@ const ProductForm: React.FC<ProductFormProps> = (props) => {
     try {
       const response = await mutationFn({
         payload: {
-          ...payload
-        }
+          ...payload,
+        },
+        ...(productId && {
+          productId,
+        })
       }).unwrap()
       console.log('response', response)
 

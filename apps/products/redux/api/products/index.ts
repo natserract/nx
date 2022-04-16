@@ -26,7 +26,7 @@ export const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
-    updateProduct: builder.mutation<string, { payload: Partial<ProductsPayloadT>, productId: string | number }>({
+    updateProduct: builder.mutation<string, { payload: ProductsPayloadT, productId: string | number }>({
       query: ({ productId, payload }) => ({
         body: {
           ...payload,
