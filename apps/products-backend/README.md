@@ -1,6 +1,4 @@
-# Bioma Interview Backend
-
-Bioma interview backend
+# Clone from https://github.com/withbioma/interview-backend
 
 Running the server:
 
