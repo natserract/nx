@@ -1,12 +1,13 @@
 import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from "@vechaiui/react"
 import { InputBase as Input, InputBaseProps } from '@nx/components'
+import React from "react";
 
 type TextFieldProps = {
   label?: string;
   helperText?: string;
 } & InputBaseProps
 
-const TextField: React.FC<TextFieldProps> = (props) => {
+const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function TextField(props, ref) {
   const {
     control,
     errors,
@@ -25,7 +26,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
   }
 
   return (
-    <FormControl invalid={Boolean(isFormError)}>
+    <FormControl ref={ref} invalid={Boolean(isFormError)}>
       <FormLabel>{label}</FormLabel>
       <Input
         control={control}
@@ -45,6 +46,6 @@ const TextField: React.FC<TextFieldProps> = (props) => {
       )}
     </FormControl>
   )
-}
+})
 
 export default TextField

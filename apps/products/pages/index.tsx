@@ -36,13 +36,14 @@ export function IndexPage(props: Props) {
         <Card
           key={product.id}
           link={`/product/${id}`}
-          title={product.name}
+          title={`${product.name}, ${product.brand}`}
           description={product.description}
           btnText="Edit Product"
           btnClick={() =>
             navigateProduct(`/product/edit`, id)
           }
           price='$220'
+        // ^ Todo price (static), soon reduced as a total price
         />
       )
     })

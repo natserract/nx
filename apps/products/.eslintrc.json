@@ -14,7 +14,7 @@
         "react/no-children-prop": ["off", {
           "allowFunctions": true
         }],
-        "ban-types": false
+        "no-empty-pattern": "off"
       }
     },
     {

@@ -7,7 +7,6 @@ import MobileMenu from './components/mobile-menu';
 export interface HeaderProps { }
 
 export function Header(props: HeaderProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, setState] = useState()
 
   const renderNavContent = () => {

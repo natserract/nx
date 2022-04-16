@@ -1,23 +1,38 @@
 
 type ProductItem = {
-  product_item_id: number;
+  id: number;
+  product_id: number;
   is_active: boolean;
   retail_price: number;
   height_cm: number;
   length_cm: number;
   weight_kg: number;
   width_cm: number;
+  product_variants: ProductVariant[]
   product_variant_ids: number[]
 
 }
 
+type ProductVariantGroup = {
+  id: number;
+  name: string;
+  description: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+  deleted_at: string | null;
+}
+
+type ProductVariant = ProductVariantGroup & {
+  product_variant_group_id: number;
+}
+
 export type ProductsPayloadT = {
-  id?: string;
+  id?: number;
   name: string;
   brand: string;
   description: string;
+  product_variant_groups: ProductVariantGroup[]
   product_item: ProductItem[];
-  product_variant_group_ids?: number[]
 }
 
 

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
-import { HTMLElementT, MouseEventT } from '../../interfaces/share';
+import { HTMLElementT, MouseEventT } from 'apps/products/interfaces/share';
 import { styles } from './styles'
 
 type CardProps = {

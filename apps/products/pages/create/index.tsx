@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { Button } from "@vechaiui/react"
 import { InputBase as Input } from '@nx/components'
-import TextField from '../../components/text-field'
+import TextField from 'apps/products/components/text-field'
 
 const Create: NextPage = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
