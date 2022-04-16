@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from '../header/header';
 
-/* eslint-disable-next-line */
 export interface ContainerProps {
   children: ReactNode;
 }

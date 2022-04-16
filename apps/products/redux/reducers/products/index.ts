@@ -31,7 +31,6 @@ export const PRODUCTS_REDUCER_KEY = 'products';
 export const fetchProducts = createAsyncThunk(
   'products/fetchStatus', // <- action type string
   async (_, thunkApi) => {
-    console.log('called!')
     return Promise.resolve([])
   }
 )

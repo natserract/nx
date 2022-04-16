@@ -71,8 +71,6 @@ const ProductForm: React.FC<ProductFormProps> = (props) => {
       const nextValue = numberOfItems;
       const prevValue = fields.length;
 
-      console.log('productItems', productItems)
-
       if (productItems && productItems.length) {
         for (let i = prevValue; i < nextValue; i++) {
           append({
@@ -183,7 +181,6 @@ const ProductForm: React.FC<ProductFormProps> = (props) => {
           productId,
         })
       }).unwrap()
-      console.log('response', response)
 
       if (response) {
         notification({

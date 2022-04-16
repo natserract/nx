@@ -47,7 +47,8 @@ const ProductPage: NextPage = (props: Props) => {
       items={product_item}
       RenderComponent={(items) => (
         <React.Fragment>
-          {items.filter(value => value.product_id == data.id)
+          {items
+            .filter(value => value.product_id == data.id)
             .map((value) => (
               <li key={value.id} className="flex">
                 <div className="ml-4 flex flex-1 flex-col">

@@ -28,7 +28,7 @@ nx serve products-backend
 - Expected signal to be an instanceof AbortSignal SSR [https://github.com/reduxjs/redux-toolkit/issues/1240](https://github.com/reduxjs/redux-toolkit/issues/1240)
 - bind: address already in use golang postgres
 - backend issues: missed fields `product_items`, `product_variant_groups` -> after add product (not yet)
-- backend issues: `http: superfluous response.WriteHeader`, PATCH request
+- backend issues: `http: superfluous response.WriteHeader`, PATCH request (not yet)
 
 
 ## Concerns
