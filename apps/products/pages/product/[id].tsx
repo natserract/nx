@@ -4,33 +4,8 @@ import { wrapper } from "apps/products/redux/configureStore";
 import { NextPage } from "next";
 import { Tag, Button } from "@vechaiui/react"
 import { useRouter } from "next/router";
-import { Any } from "@nx/components";
 import React from "react";
-
-const isValidItems = (items: Array<Any>) => {
-  return items && items.length
-}
-
-type ConditionalRenderProps = {
-  items: Array<Any>,
-  RenderComponent: (items: Array<Any>) => JSX.Element,
-  EmptyComponent?: (children) => JSX.Element,
-}
-
-const ConditionalRender: React.FC<ConditionalRenderProps> = (props) => {
-  const {
-    items,
-    EmptyComponent,
-    RenderComponent,
-  } = props
-
-  if (!isValidItems(items)) return (
-    EmptyComponent ?
-      <EmptyComponent /> : (<div>Empty Items</div>)
-  )
-
-  return RenderComponent(items)
-}
+import { ConditionalRender } from "@nx/components"
 
 type Props = {
   product: {
@@ -40,12 +15,71 @@ type Props = {
 const ProductPage: NextPage = (props: Props) => {
   const { product } = props
 
+  const router = useRouter()
+
   const { data } = product
   const { product_item, product_variant_groups } = data
 
-  const router = useRouter()
-
   const handleClick = () => router.push(`/product/edit/${data.id}`)
+
+  const renderVariantGroups = () => (
+    <ConditionalRender
+      items={product_variant_groups}
+      RenderComponent={(items) => (
+        <React.Fragment>
+          {items.map(value => (
+            <div className="ml-4" key={value.id}>
+              <dt className="font-medium text-gray-900">
+                {value.name}
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">{value.description}</dd>
+            </div>
+          ))}
+        </React.Fragment>
+      )
+      }
+    />
+  )
+
+  const renderDetailProduct = () => (
+    <ConditionalRender
+      items={product_item}
+      RenderComponent={(items) => (
+        <React.Fragment>
+          {items.filter(value => value.product_id == data.id)
+            .map((value) => (
+              <li key={value.id} className="flex py-6">
+                <div className="ml-4 flex flex-1 flex-col">
+                  <ol className="mt-2 text-sm text-gray-500">
+                    <li className="mb-2">Retail Price: {value.retail_price}</li>
+                    <li className="mb-2">Weight(kg): {value.weight_kg}</li>
+                    <li className="mb-2">Length(cm): {value.length_cm}</li>
+                    <li className="mb-2">Height(cm): {value.height_cm}</li>
+                    <li>Width(cm): {value.width_cm}</li>
+                  </ol>
+                </div>
+
+                <div className="ml-4 flex flex-1 flex-col">
+                  <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                      <h3 className="mb-1">Product Variants</h3>
+                    </div>
+
+                    {value.product_variants.map(variant => (
+                      <Tag
+                        className="mt-1 text-sm text-gray-900 mr-2"
+                        key={variant.id}>
+                        {variant.name}
+                      </Tag>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+        </React.Fragment>
+      )}
+    />
+  )
 
   return (
     <div className="max-w-4xl mx-auto px-8">
@@ -72,59 +106,12 @@ const ProductPage: NextPage = (props: Props) => {
       <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 sm:gap-y-16 lg:gap-x-8">
         <div className="border-t border-gray-200 pt-4">
           <h2 className="text-1xl font-extrabold tracking-tight text-gray-900 sm:text-2xl mb-5">Variant Groups</h2>
-
-          <ConditionalRender
-            items={product_variant_groups}
-            RenderComponent={(items) => (
-              <React.Fragment>
-                {items.map(value => (
-                  <div className="ml-4" key={value.id}>
-                    <dt className="font-medium text-gray-900">
-                      {value.name}
-                    </dt>
-                    <dd className="mt-2 text-sm text-gray-500">{value.description}</dd>
-                  </div>
-                ))}
-              </React.Fragment>
-            )
-            }
-          />
+          {renderVariantGroups()}
 
           <div className="mt-10">
             <ul role="list">
               <h2 className="text-1xl font-extrabold text-gray-900 sm:text-2xl">Details</h2>
-
-              {isValidItems(product_item) && product_item
-                .filter(value => value.product_id == data.id)
-                .map(value => (
-                  <li key={value.id} className="flex py-6">
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <ol className="mt-2 text-sm text-gray-500">
-                        <li className="mb-2">Retail Price: {value.retail_price}</li>
-                        <li className="mb-2">Weight(kg): {value.weight_kg}</li>
-                        <li className="mb-2">Length(cm): {value.length_cm}</li>
-                        <li className="mb-2">Height(cm): {value.height_cm}</li>
-                        <li>Width(cm): {value.width_cm}</li>
-                      </ol>
-                    </div>
-
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3 className="mb-1">Product Variants</h3>
-                        </div>
-
-                        {value.product_variants.map(variant => (
-                          <Tag
-                            className="mt-1 text-sm text-gray-900 mr-2"
-                            key={variant.id}>
-                            {variant.name}
-                          </Tag>
-                        ))}
-                      </div>
-                    </div>
-                  </li>
-                ))}
+              {renderDetailProduct()}
             </ul>
           </div>
         </div>
