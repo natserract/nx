@@ -92,3 +92,23 @@ Nx Cloud pairs with Nx in order to enable you to build and test code more rapidl
 Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
+
+
+## Cli
+- Running (client): `nx run products:serve`
+- Running (backend): `nx serve products-backend`
+
+
+## Issues
+- docker can't running, solutions: downgrade version
+- [https://github.com/nrwl/nx/issues/5605](https://github.com/nrwl/nx/issues/5605), solutions: create blank main.tsx
+- Expected signal to be an instanceof AbortSignal SSR [https://github.com/reduxjs/redux-toolkit/issues/1240](https://github.com/reduxjs/redux-toolkit/issues/1240)
+- bind: address already in use golang postgres
+
+
+## Concerns
+### Redux
+Redux Toolkit was created to address three major concerns:
+1. "Configuring a Redux store is too complicated" 
+2. "I have to add a lot of packages to get Redux to do anything useful"
+3. "Redux requires too much boilerplate code"

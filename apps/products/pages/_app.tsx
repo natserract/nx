@@ -1,18 +1,52 @@
-import { AppProps } from 'next/app';
+/* eslint-disable @typescript-eslint/no-var-requires */
+// https://github.com/reduxjs/redux-toolkit/issues/1240
+import 'isomorphic-fetch'
+import { default as AbortController } from "abort-controller"
+
+Object.assign(globalThis, {
+  AbortController,
+});
+
+import App from 'next/app';
 import Head from 'next/head';
+
+import { VechaiProvider } from "@vechaiui/react";
+import 'tailwindcss/tailwind.css';
+
 import './styles.css';
 
-function CustomApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Head>
-        <title>Welcome to products!</title>
-      </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
-  );
+// Redux blocks
+import { Provider } from 'react-redux'
+import { store, wrapper } from '../redux/configureStore';
+import ContainerLayout from '../layouts/container/container';
+
+class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+
+    // Anything returned here can be access by the client
+    return { pageProps: pageProps };
+  }
+
+  render() {
+    const { Component, pageProps } = this.props;
+
+    return (
+      <>
+        <Head>
+          <title>Welcome to products!</title>
+        </Head>
+
+        <Provider store={store}>
+          <VechaiProvider>
+            <ContainerLayout>
+              <Component {...pageProps} />
+            </ContainerLayout>
+          </VechaiProvider>
+        </Provider>
+      </>
+    );
+  }
 }
 
-export default CustomApp;
+export default wrapper.withRedux(MyApp)

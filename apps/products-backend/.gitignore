@@ -1,0 +1,8 @@
+bin
+vendor
+docker
+**/gomock_reflect*
+
+.idea
+.DS_Store
+interview-backend

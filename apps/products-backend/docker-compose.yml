@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    container_name: interview_backend_postgres
+    image: "postgis/postgis"
+    environment:
+      POSTGRES_DB: bioma
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      # Issues: Ports are not available: listen tcp 0.0.0.0:5432: bind: address already in use
+      # Solution: https://github.com/docker/compose/issues/4950
+      - 5432
+    networks:
+      - backend
+
+  app:
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    depends_on:
+      - db
+    networks:
+      - backend
+    environment:
+      WAIT_HOSTS: "db:5432"
+      ENV: "dev"
+      GO_ENV: "dev"
+    ports:
+      - 8080:8080
+
+networks:
+  backend:

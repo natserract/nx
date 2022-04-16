@@ -11,7 +11,8 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    "go.mod": "*"
   },
   "tasksRunnerOptions": {
     "default": {
