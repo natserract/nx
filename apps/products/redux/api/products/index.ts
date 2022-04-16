@@ -14,8 +14,8 @@ export const productApi = baseApi.injectEndpoints({
     getProduct: builder.query<ProductViewResponse, string | number>({
       query: (productId: string | number) => `${URL_PRODUCTS_ITEM(productId)}`,
     }),
-    addProduct: builder.mutation<string, { payload: ProductsPayloadT; productId: string | number }>({
-      query: ({ productId, payload }) => ({
+    addProduct: builder.mutation<string, { payload: ProductsPayloadT }>({
+      query: ({ payload }) => ({
         // Input types
         body: {
           ...payload,
@@ -49,11 +49,12 @@ export const productApi = baseApi.injectEndpoints({
 // Auto-generated based on the defined endpoints
 export const
   { useGetProductsQuery
-    , useAddProductMutation
     , useLazyGetProductsQuery
     , useGetProductQuery
     , useLazyGetProductQuery
+    , useAddProductMutation
     , useAddVariantGroupsMutation
+    , useUpdateProductMutation
     , util: { getRunningOperationPromises: getRunningOperationPromisesProduct }
   } = productApi
 
@@ -61,4 +62,4 @@ export const productsApiReducer = productApi.reducer
 export const productsApiReducerPath = productApi.reducerPath
 
 // export endpoints for use in SSR
-export const { getProducts } = productApi.endpoints;
+export const { getProducts, getProduct } = productApi.endpoints;

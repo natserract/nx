@@ -1,4 +1,4 @@
-import { getRunningOperationPromisesProduct, productApi } from "apps/products/redux/api";
+import { getProduct, getRunningOperationPromisesProduct } from "apps/products/redux/api";
 import { ProductsPayloadT } from "apps/products/redux/api/products/types";
 import { wrapper } from "apps/products/redux/configureStore";
 import { NextPage } from "next";
@@ -112,7 +112,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps = wrapper.getServerSideProps(store => async ({ params }) => {
   const response = await store.dispatch(
-    productApi.endpoints.getProduct.initiate(params.id as string)
+    getProduct.initiate(params.id as string)
   )
   await Promise.all(getRunningOperationPromisesProduct())
 

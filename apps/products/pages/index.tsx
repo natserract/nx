@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import { getRunningOperationPromisesProduct, productApi } from '../redux/api/products'
+import { getProducts, getRunningOperationPromisesProduct } from '../redux/api/products'
 import { useForm } from 'react-hook-form'
 import { useAppSelector, wrapper } from '../redux/configureStore';
 import Card from '../components/card';
@@ -24,7 +24,7 @@ export function IndexPage(props: Props) {
 
   const renderProducts = () => {
     const navigateProduct =
-      (url: string, slug: string) => router.push(`${url}/${slug}`)
+      (url: string, id: string | number) => router.push(`${url}/${id}`)
 
     if (!data.length) return <React.Fragment />
 
@@ -65,7 +65,7 @@ export function IndexPage(props: Props) {
 }
 
 export const getStaticProps = wrapper.getStaticProps(store => async (context) => {
-  const response = await store.dispatch(productApi.endpoints.getProducts.initiate())
+  const response = await store.dispatch(getProducts.initiate())
   await Promise.all(getRunningOperationPromisesProduct())
 
   return {
