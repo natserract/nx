@@ -1,4 +1,5 @@
 
+// | Products Type
 type ProductItem = {
   id: number;
   product_id: number;
@@ -42,4 +43,15 @@ export type ProductListsResponse = {
 
 export type ProductViewResponse = {
   product: ProductsPayloadT
+}
+
+// | Variant Group Types
+export type VariantGroupPayloadT = {
+  name: string;
+  description: string;
+  product_variants: [
+    {
+      name: string
+    }
+  ]
 }

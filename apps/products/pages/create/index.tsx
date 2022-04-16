@@ -3,14 +3,32 @@ import { useForm } from "react-hook-form";
 import { Button } from "@vechaiui/react"
 import { InputBase as Input } from '@nx/components'
 import TextField from 'apps/products/components/text-field'
+import { useAddVariantGroupsMutation } from "apps/products/redux/api/products";
 
 const Create: NextPage = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onChange'
   });
 
+  const [addVariantGroupMutation] = useAddVariantGroupsMutation()
+
   const onSubmit = async (data) => {
-    //
+    try {
+      const response = await addVariantGroupMutation({
+        payload: {
+          name: "Size2",
+          description: "Item Size",
+          product_variants: [
+            {
+              name: "Small"
+            }
+          ]
+        }
+      }).unwrap()
+      console.log('response', response)
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
-import { URL_PRODUCTS, URL_PRODUCTS_ITEM } from '../../../constants/endpoint';
+import { URL_PRODUCTS, URL_PRODUCTS_ITEM, URL_PRODUCTS_VARIANT_GROUPS } from '../../../constants/endpoint';
 import { baseApi } from '../base'
-import { ProductListsResponse, ProductsPayloadT, ProductViewResponse } from './types';
+import { ProductListsResponse, ProductsPayloadT, ProductViewResponse, VariantGroupPayloadT } from './types';
 
 // | Define product endpoints and allow it to create the API slice
 export const productApi = baseApi.injectEndpoints({
@@ -14,7 +14,7 @@ export const productApi = baseApi.injectEndpoints({
     getProduct: builder.query<ProductViewResponse, string | number>({
       query: (productId: string | number) => `${URL_PRODUCTS_ITEM(productId)}`,
     }),
-    addProducts: builder.mutation<string, { payload: ProductsPayloadT; productId: string }>({
+    addProduct: builder.mutation<string, { payload: ProductsPayloadT; productId: string | number }>({
       query: ({ productId, payload }) => ({
         // Input types
         body: {
@@ -22,6 +22,24 @@ export const productApi = baseApi.injectEndpoints({
         },
         method: 'POST',
         url: `${URL_PRODUCTS}`,
+      })
+    }),
+    updateProduct: builder.mutation<string, { payload: Partial<ProductsPayloadT>, productId: string | number }>({
+      query: ({ productId, payload }) => ({
+        body: {
+          ...payload,
+        },
+        method: 'PATCH',
+        url: `${URL_PRODUCTS_ITEM(productId)}`
+      })
+    }),
+    addVariantGroups: builder.mutation<string, { payload: VariantGroupPayloadT }>({
+      query: ({ payload }) => ({
+        body: {
+          ...payload,
+        },
+        method: 'POST',
+        url: `${URL_PRODUCTS_VARIANT_GROUPS}`
       })
     })
   })
@@ -31,10 +49,11 @@ export const productApi = baseApi.injectEndpoints({
 // Auto-generated based on the defined endpoints
 export const
   { useGetProductsQuery
-    , useAddProductsMutation
+    , useAddProductMutation
     , useLazyGetProductsQuery
     , useGetProductQuery
     , useLazyGetProductQuery
+    , useAddVariantGroupsMutation
     , util: { getRunningOperationPromises: getRunningOperationPromisesProduct }
   } = productApi
 

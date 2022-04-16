@@ -23,7 +23,9 @@ const ProductPage: NextPage = (props: Props) => {
     <div className="max-w-4xl mx-auto px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{data.name}, {data.brand}</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            {data.name}, {data.brand}
+          </h1>
           <p className="mt-4 text-gray-500">
             {data.description}
           </p>
@@ -66,14 +68,14 @@ const ProductPage: NextPage = (props: Props) => {
                         <li className="mb-2">Weight(kg): {value.weight_kg}</li>
                         <li className="mb-2">Length(cm): {value.length_cm}</li>
                         <li className="mb-2">Height(cm): {value.height_cm}</li>
-                        <li>Width(cm): 10</li>
+                        <li>Width(cm): {value.width_cm}</li>
                       </ol>
                     </div>
 
                     <div className="ml-4 flex flex-1 flex-col">
                       <div>
                         <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3 className="mb-1">Product Variant</h3>
+                          <h3 className="mb-1">Product Variants</h3>
                         </div>
 
                         {value.product_variants.map(variant => (
