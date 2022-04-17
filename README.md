@@ -32,6 +32,10 @@ nx serve products-backend
 
 
 ## Concerns
+State (in the broadest sense) is the complex of all of the values held by the application as properties or variables at any given time, and the application is conceived of as acting by executing methods/functions that change the current state to another state.
+
+State can be a messy part of application development - especially when there are a lot of user interactions to manage. While the DOM can certainly get you quite a ways if you have a particularly complex application it may get messy trying to keep everything straight. These all are’s matter, so here’s i Implementing crud feature in Next.js App with RTK Query, SSR. Hopefully helpful
+
 Redux Toolkit was created to address three major concerns:
 1. "Configuring a Redux store is too complicated" 
 2. "I have to add a lot of packages to get Redux to do anything useful"
