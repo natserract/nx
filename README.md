@@ -3,9 +3,19 @@
 # Nx Monorepo
 ![image](https://miro.medium.com/max/1400/1*czYEm0sqVhiH-kOiltbbxA.png)
 
-Recently, we started a new project at work. Actually two projects. We needed an application where people could sign in and see information about their account, and another one where they could search for a doctor or facility where they could receive care. The wrinkle is that the search functionality needed to be available inside the member portal application, and be available as a stand-alone application. 
+A monorepo is a single git repository that holds the source code for multiple applications and libraries, along with the tooling for them.
 
-Because of that, we decided to build the two applications inside a monorepo, where they could share all the code they needed. It allowed us to write the code one time, and use it in multiple places. There's more than one way to do this, including packaging up the code and pushing it to NPM or a private registry, but in my opinion the monorepo is the simplest way to share the code. To learn more about Nx, check out their site, nx.dev.
+Nx is a framework that allows you to architect, test, and build your project at any scale with the most popular modern Front-end frameworks like React and Angular, and Back-end ones like NestJs or Express. To make this possible, Nx comes shipped with a large toolset that simplifies your Monorepo management. If you are unfamiliar with Monorepo, it is basically a version-controlled code repository that holds many projects and libraries.
+
+> If you are familiar with Lerna or Yarn workspaces, check out this guide (with a quick video) showing how to add Nx to a Lerna/Yarn workspace, what the difference is, when to use both and when to use just Nx.
+
+What are the benefits of a monorepo?
+
+- **Shared code and visibility** - Keeps your code DRY across your entire organization. Reuse validation code, UI components, and types across the codebase. Reuse code between the backend, the frontend, and utility libraries.
+- **Atomic changes** - Change a server API and modify the downstream applications that consume that API in the same commit. You can change a button component in a shared library and the applications that use that component in the same commit. A monorepo saves the pain of trying to coordinate commits across multiple repositories.
+- **Developer mobility** - Get a consistent way of building and testing applications written using different tools and technologies. Developers can confidently contribute to other teams’ applications and verify that their changes are safe.
+- **Single set of dependencies** - Use a single version of all third-party dependencies, reducing inconsistencies between applications. Less actively developed applications are still kept up-to-date with the latest version of a framework, library, or build tool.
+
 
 ## Running
 To running this project locally:
